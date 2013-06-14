@@ -236,11 +236,11 @@ class TokenTransformations {
 				if(!$content->isEmpty()) {
 					$content->newline();
 				}
-				$content->append($word);
+				$content->append($word)->newline();
 			},
 			T_CLOSE_TAG => function ($content, $state, $word) {
 				$state->index = 0;
-				$content->newline()->append($word);
+				$content->newline()->append($word)->newline();
 			},
 			T_WHITESPACE => function ($content, $state, $word) {
 				if(preg_match("/\n\n+?/", $word)) {
