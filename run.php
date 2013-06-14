@@ -1,14 +1,10 @@
 <?php
 
-require_once (dirname(__FILE__) . '/PhpFormatter.php');
+require_once ('src/PhpFormatter.php');
 
-// run it as a command line tool
 $argc = $_SERVER['argc'];
 $argv = $_SERVER['argv'];
 
-/**
-Some comment
-	*/
 if ($argc < 2)
 {
 	printf("Usage: %s input file [output file]\n" . "Input file can be '-' for stdin, " .
@@ -19,11 +15,6 @@ if ($argc < 2)
 
 $inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1]; 
 $fileContent = file_get_contents($inputFile);
-
-
-
-
-
 $formatter = new PHPFormatter();
 $output = $formatter->format($fileContent);
 
