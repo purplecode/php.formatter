@@ -192,18 +192,18 @@ class TokenTransformations {
 			T_WHILE => function ($content, $state, $word) {
 				$content->newline()->append($word);
 			},
-			T_FOR => function ($content, $state, $word) {
+			T_FOR => function ($content, $state, $word) {		
 				$content->newline()->append($word);
 			},
+			T_FOREACH => function ($content, $state, $word) {
+				$content->newline()->append($word);
+			}, 
 			T_CLASS => function ($content, $state, $word) {
 				$content->newline()->append($word)->space();
 			},
 			T_FUNCTION => function ($content, $state, $word) {
 				$content->append($word)->space();
 			},
-			T_FOREACH => function ($content, $state, $word) {
-				$content->newline()->append($word);
-			}, 
 			'{' => function ($content, $state, $word) {
 				if(Settings::BRACES_IN_NEW_LINE) {
 					$content->newline();
@@ -223,10 +223,10 @@ class TokenTransformations {
 				$content->rtrim()->newline()->append($word)->newline();
 			},
 			'(' => function ($content, $state, $word) {
-				$content->append($word);
+				$content->openBraces();
 			},
 			')' => function ($content, $state, $word) {
-				$content->append($word);
+				$content->closeBraces();
 			},
 			';' => function ($content, $state, $word) {
 				$content->rtrim()->append($word)->newline();

@@ -7,6 +7,8 @@ class State {
 
 	public $indent = 0;
 
+	public $openBraces = 0;
+
 }
 
 class Content {
@@ -24,13 +26,27 @@ class Content {
 		return $this;
 	}
 
+	public function openBraces() {
+		$this->state->openBraces++;
+		$this->append('(');
+	}
+
+	public function closeBraces() {
+		$this->state->openBraces--;
+		$this->append(')');
+	}
+
 	public function space() {
 		$this->content .= ' ';	
 		return $this;
 	}
 
 	public function newline() {
-		$this->content .= "\n".str_repeat(' ', $this->state->indent * Settings::TABS_LENGTH);	
+		if($this->state->openBraces == 0) {
+			$this->content .= "\n".str_repeat(' ', $this->state->indent * Settings::TABS_LENGTH);
+		} else {
+			$this->space();
+		}
 		return $this;
 	}	
 
