@@ -14,10 +14,10 @@ exit(0);
 }
 
 for($i=10; $i >      0; $i--) {
-	//do nothing
+	// do nothing
 }
-
-$inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1]; //some comment
+	/* some comment */
+$inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1];
 $fileContent = file_get_contents($inputFile);
 
 $formatter = new PHPFormatter();
