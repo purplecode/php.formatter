@@ -1,6 +1,7 @@
 <?php
 
 require_once ('Settings.php');
+require_once ('StringUtils.php');
 
 class TokenTransformations {
 
@@ -16,7 +17,7 @@ class TokenTransformations {
 
 	public function has($tokenKey) {
 		return isset($this->replacements[$tokenKey]);
-	}	
+	}
 
 	public function __construct() {
 		
@@ -138,8 +139,12 @@ class TokenTransformations {
 				}
 			},
 			T_COMMENT => function ($content, $state, $word) {
-				foreach(explode("\n", $word) as $commentLine) {
-					$content->newline()->append(trim($commentLine));
+				if(StringUtils::contains($word, "\n")) {
+					foreach(explode("\n", $word) as $commentLine) {
+						$content->newline()->append(trim($commentLine));
+					}
+				} else {
+					$content->append(trim($commentLine));
 				}
 			},
 			T_DOC_COMMENT => function ($content, $state, $word) {
@@ -244,7 +249,8 @@ class TokenTransformations {
 			},
 			T_WHITESPACE => function ($content, $state, $word) {
 				if(preg_match("/\n\n+?/", $word)) {
-					$content->newline();		
+					// TODO
+					//$content->newline();		
 				}
 			},
 			T_INLINE_HTML => function ($content, $state, $word) {

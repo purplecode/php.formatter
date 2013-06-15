@@ -46,10 +46,6 @@ class Content {
 	public function getContent() {
 		return $this->content;
 	}
-
-	public function endsWith($suffix) {
-		return substr_compare($this->content, $suffix, -strlen($suffix), strlen($suffix)) === 0;
-	}
 }
 
 class PhpFormatter {

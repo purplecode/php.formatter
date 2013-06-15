@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/../src/PhpFormatter.php');
+require_once (dirname(__FILE__) . '/../../src/PhpFormatter.php');
 
-class PhpFormatterTest extends PHPUnit_Framework_TestCase {
+class FunctionalTest extends PHPUnit_Framework_TestCase {
 
     private $cut;
 
@@ -11,19 +11,21 @@ class PhpFormatterTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testFormatingIfBlock() {
+    public function testCase1() {
         // give
-        $input = "<?php if (\$x   == 2) { return ;} ?>";
+        $input = $this->getFile('1.in');
 
         // when
         $current = $this->cut->format($input);
 
         //then
-        $expected = "<?php \nif(\$x == 2) {\n    return;\n}\n\n?>\n";
-
-        //$this->print_diff($expected, $current);
+        $expected = $this->getFile('1.out');
 
         $this->assertEquals($expected, $current);
+    }
+
+    private function getFile($name) {
+    	return file_get_contents(dirname(__FILE__).'/'. $name);
     }
 
     private function print_diff($expected, $current) {
