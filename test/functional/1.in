@@ -13,6 +13,10 @@ if ($argc < 2)
 exit(0);
 }
 
+foreach ($variable as $key => $value) {
+	# code...
+}
+
 for($i=10; $i >      0; $i--) {
 	// do nothing
 }

@@ -11,6 +11,14 @@ class TokenTransformations {
 		return strlen($text) + substr_count($text, "\t") * (Settings::TABS_LENGTH - 1);
 	}
 
+	// @VisibleForTesting
+	public function beautifyComment($comment) {
+		if(Settings::SPACE_AFTER_COMMENT) {
+			$comment = StringUtils::replace(array('/\/\/(\w)/', '/#(\w)/'), array('// \1', '# \1'), $comment);
+		}
+		return $comment;
+	}
+
 	public function get($tokenKey) {
 		return $this->replacements[$tokenKey];
 	}
@@ -139,9 +147,7 @@ class TokenTransformations {
 				}
 			},
 			T_COMMENT => function ($content, $state, $word) {
-				if(Settings::SPACE_AFTER_COMMENT) {
-					$word = StringUtils::replace('/\/\/(\w)/', '// \1', $word);
-				}
+				$word = $this->beautifyComment($word);
 				foreach(explode("\n", $word) as $commentLine) {
 					$content->append(trim($commentLine))->newline();
 				}

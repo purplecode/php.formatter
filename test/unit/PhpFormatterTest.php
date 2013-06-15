@@ -26,6 +26,18 @@ class PhpFormatterTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $current);
     }
 
+    // TODO move to token transformation tests
+    public function testBeautifyComment() {
+        // given 
+        $text = "//some comment";
+
+        // when
+        $result = $this->cut->beautifyComment($text);
+
+        // then
+        $this->assertEquals("// some comment", $result);
+    }
+
     private function print_diff($expected, $current) {
         $this->assertEquals(strlen($expected), strlen($current));
         
