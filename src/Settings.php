@@ -6,5 +6,7 @@ class Settings {
 
 	const BRACES_IN_NEW_LINE = false;
 
+	const SPACE_AFTER_COMMENT = true;
+
 
 }

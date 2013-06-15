@@ -139,6 +139,9 @@ class TokenTransformations {
 				}
 			},
 			T_COMMENT => function ($content, $state, $word) {
+				if(Settings::SPACE_AFTER_COMMENT) {
+					$word = StringUtils::replace('/\/\/(\w)/', '// \1', $word);
+				}
 				if(StringUtils::contains($word, "\n")) {
 					foreach(explode("\n", $word) as $commentLine) {
 						$content->newline()->append(trim($commentLine));

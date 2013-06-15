@@ -31,7 +31,7 @@ class StringUtilsTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse(StringUtils::contains($text, "m a"));
     }
 
-    public function testReplace() {
+    public function testSimpleReplace() {
     	// given 
     	$text = "ala ma kota";
 
@@ -40,5 +40,16 @@ class StringUtilsTest extends PHPUnit_Framework_TestCase {
 
     	// then
         $this->assertEquals("bob ma kota", $result);
+    }
+
+    public function testLineCommentReplace() {
+    	// given 
+    	$text = "//some comment";
+
+    	// when
+		$result = StringUtils::replace('/\/\/(\w)/', '// \1', $text);
+
+    	// then
+        $this->assertEquals("// some comment", $result);
     }
 }
