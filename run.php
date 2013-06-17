@@ -13,7 +13,7 @@ if ($argc < 2)
 	exit(0);
 }
 
-$inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1]; 
+$inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1];
 $fileContent = file_get_contents($inputFile);
 $formatter = new PHPFormatter();
 $output = $formatter->format($fileContent);

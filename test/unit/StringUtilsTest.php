@@ -41,4 +41,15 @@ class StringUtilsTest extends PHPUnit_Framework_TestCase {
     	// then
         $this->assertEquals("bob ma kota", $result);
     }
+
+    public function testMatches() {
+        // given 
+        $text = "/** ala ma kota */\n";
+
+        // when
+        $result = StringUtils::matches('/\/\n$/', $text);
+
+        // then
+        $this->assertTrue($result >= 1);
+    }
 }

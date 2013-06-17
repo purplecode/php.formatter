@@ -18,4 +18,8 @@ class StringUtils {
 		return preg_replace($regexp, $replacement, $text);
 	}
 
+	public static function matches($text, $regexp) {
+		return preg_match($text, $regexp);
+	}
+
 }

@@ -29,7 +29,7 @@ class TokenTransformations {
 
 	public function __construct() {
 		
-		$this->replacements = array(
+		$replacements = array(
 			T_ABSTRACT => 'abstract ',
 			T_AND_EQUAL => ' &= ',
 			T_ARRAY => 'array',
@@ -108,9 +108,6 @@ class TokenTransformations {
 			T_PAAMAYIM_NEKUDOTAYIM => '::',
 			T_PLUS_EQUAL => ' += ',
 			T_PRINT => 'print',
-			T_PRIVATE => 'private ',
-			T_PUBLIC =>	'public ',
-			T_PROTECTED => 'protected ',
 			T_REQUIRE => 'require ',
 			T_REQUIRE_ONCE => 'require_once ',
 			T_SL => ' << ',
@@ -156,6 +153,7 @@ class TokenTransformations {
 				foreach(explode("\n", $word) as $commentLine) {
 					$content->newline()->append(trim($commentLine));
 				}
+				$content->newline();
 			}, 
 			T_RETURN => function ($content, $state, $word) {
 				$content->append($word)->space();
@@ -253,14 +251,33 @@ class TokenTransformations {
 				$content->newline()->append($word)->newline();
 			},
 			T_WHITESPACE => function ($content, $state, $word) {
-				if(preg_match("/\n\n+?/", $word)) {
-					// TODO
-					//$content->newline();		
+				if($word == "\n\n") {
+					$content->newline();
 				}
 			},
 			T_INLINE_HTML => function ($content, $state, $word) {
 				// TODO
-			}
-			);
+			});
+
+			$_ = function($tokenKeys, $function) use (&$replacements) {
+				if(is_array($tokenKeys)) {
+					foreach ($tokenKeys as $tokenKey) {
+						$replacements[$tokenKey] = $function;
+					}
+				} else {
+					$replacements[$tokenKeys] = $function;
+				}
+			};
+
+
+			$_(array(T_PRIVATE, T_PUBLIC, T_PROTECTED), function ($content, $state, $word) {
+				if(StringUtils::matches('/}\n\s*?$/', $content->getContent())) {
+					$content->newline();
+				}			
+				$content->append($word)->space();
+			});
+
+			
+			$this->replacements = $replacements;
 	}
 }

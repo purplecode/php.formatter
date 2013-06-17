@@ -17,9 +17,13 @@ foreach ($variable as $key => $value) {
 	# code...
 }
 
-for($i=10; $i >      0; $i--) {
+for($i=10; $i >      0;
+
+ $i--) {
 	// do nothing
 }
+
+
 	/* some comment */
 $inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1];
 $fileContent = file_get_contents($inputFile);
