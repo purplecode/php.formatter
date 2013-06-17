@@ -187,15 +187,6 @@ class TokenTransformations {
 			T_DEFAULT => function ($content, $state, $word) {
 				// TODO
 			},
-			T_WHILE => function ($content, $state, $word) {
-				$content->newline()->append($word);
-			},
-			T_FOR => function ($content, $state, $word) {		
-				$content->newline()->append($word);
-			},
-			T_FOREACH => function ($content, $state, $word) {
-				$content->newline()->append($word);
-			}, 
 			T_CLASS => function ($content, $state, $word) {
 				$content->newline()->append($word)->space();
 			},
@@ -277,6 +268,9 @@ class TokenTransformations {
 				$content->append($word)->space();
 			});
 
+			$_(array(T_WHILE, T_FOR, T_FOREACH), function ($content, $state, $word) {
+				$content->newline()->append($word);
+			});
 			
 			$this->replacements = $replacements;
 	}
