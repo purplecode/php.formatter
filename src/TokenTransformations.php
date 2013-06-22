@@ -146,7 +146,9 @@ class TokenTransformations {
 			T_COMMENT => function ($content, $state, $word) {
 				$word = $this->beautifyComment($word);
 				foreach(explode("\n", $word) as $commentLine) {
-					$content->append(trim($commentLine))->newline();
+					if(!empty($commentLine)) {
+						$content->append(trim($commentLine))->newline();
+					}
 				}
 			},
 			T_DOC_COMMENT => function ($content, $state, $word) {

@@ -23,7 +23,6 @@
 */
 error_reporting(E_ALL);
 // Before all, test the tokenizer extension
-
 if(!extension_loaded('tokenizer')) {
     throw new Exception("Compile php with tokenizer extension. Use --enable-tokenizer or don't use --disable-all on configure.");
 }
@@ -92,7 +91,6 @@ include_once 'Beautifier/StreamWrapper.php';
 
 class PHP_Beautifier implements PHP_Beautifier_Interface {
     // public
-    
     
     /**
     * Tokens created by the tokenizer
@@ -218,7 +216,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
     public $aCurrentToken = array();
     // private
     
-    
     /**
     * type of file
     */
@@ -283,7 +280,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
     private $doWhileBeginEnd;
     // Methods
     
-    
     /**
     * Constructor.
     * Assing values to {@link $aControlStructures},{@link $aControlStructuresEnd},
@@ -298,7 +294,7 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
             $this->aTokenNames[constant($sToken)] = $sToken;
             $this->aTokenFunctions[constant($sToken)] = $sToken;
         }
-        $aTokensToChange = array(/* QUOTES */ '"' => "T_DOUBLE_QUOTE", "'" => "T_SINGLE_QUOTE", /* PUNCTUATION */ '(' => 'T_PARENTHESIS_OPEN', ')' => 'T_PARENTHESIS_CLOSE', ';' => 'T_SEMI_COLON', '{' => 'T_OPEN_BRACE', '}' => 'T_CLOSE_BRACE', ',' => 'T_COMMA', '?' => 'T_QUESTION', ':' => 'T_COLON', '=' => 'T_ASSIGMENT', '<' => 'T_EQUAL', '>' => 'T_EQUAL', '.' => 'T_DOT', '[' => 'T_OPEN_SQUARE_BRACE', ']' => 'T_CLOSE_SQUARE_BRACE', /* OPERATOR*/ '+' => 'T_OPERATOR', '-' => 'T_OPERATOR', '*' => 'T_OPERATOR', '/' => 'T_OPERATOR', '%' => 'T_OPERATOR', '&' => 'T_OPERATOR', '|' => 'T_OPERATOR', '^' => 'T_OPERATOR', '~' => 'T_OPERATOR', '!' => 'T_OPERATOR_NEGATION', T_SL => 'T_OPERATOR', T_SR => 'T_OPERATOR', T_OBJECT_OPERATOR => 'T_OBJECT_OPERATOR', /* INCLUDE */ T_INCLUDE => 'T_INCLUDE', T_INCLUDE_ONCE => 'T_INCLUDE', T_REQUIRE => 'T_INCLUDE', T_REQUIRE_ONCE => 'T_INCLUDE', /* LANGUAGE CONSTRUCT */ T_FUNCTION => 'T_LANGUAGE_CONSTRUCT', T_PRINT => 'T_LANGUAGE_CONSTRUCT', T_RETURN => 'T_LANGUAGE_CONSTRUCT', T_ECHO => 'T_LANGUAGE_CONSTRUCT', T_NEW => 'T_LANGUAGE_CONSTRUCT', T_CLASS => 'T_LANGUAGE_CONSTRUCT', T_VAR => 'T_LANGUAGE_CONSTRUCT', T_GLOBAL => 'T_LANGUAGE_CONSTRUCT', T_THROW => 'T_LANGUAGE_CONSTRUCT', /* CONTROL */ T_IF => 'T_CONTROL', T_DO => 'T_CONTROL', T_WHILE => 'T_CONTROL', T_SWITCH => 'T_CONTROL', /* ELSE */ T_ELSEIF => 'T_ELSE', T_ELSE => 'T_ELSE', /* ACCESS PHP 5 */ T_INTERFACE => 'T_ACCESS', T_FINAL => 'T_ACCESS', T_ABSTRACT => 'T_ACCESS', T_PRIVATE => 'T_ACCESS', T_PUBLIC => 'T_ACCESS', T_PROTECTED => 'T_ACCESS', T_CONST => 'T_ACCESS', T_STATIC => 'T_ACCESS', /* COMPARATORS */ T_PLUS_EQUAL => 'T_ASSIGMENT_PRE', T_MINUS_EQUAL => 'T_ASSIGMENT_PRE', T_MUL_EQUAL => 'T_ASSIGMENT_PRE', T_DIV_EQUAL => 'T_ASSIGMENT_PRE', T_CONCAT_EQUAL => 'T_ASSIGMENT_PRE', T_MOD_EQUAL => 'T_ASSIGMENT_PRE', T_AND_EQUAL => 'T_ASSIGMENT_PRE', T_OR_EQUAL => 'T_ASSIGMENT_PRE', T_XOR_EQUAL => 'T_ASSIGMENT_PRE', T_DOUBLE_ARROW => 'T_ASSIGMENT', T_SL_EQUAL => 'T_EQUAL', T_SR_EQUAL => 'T_EQUAL', T_IS_EQUAL => 'T_EQUAL', T_IS_NOT_EQUAL => 'T_EQUAL', T_IS_IDENTICAL => 'T_EQUAL', T_IS_NOT_IDENTICAL => 'T_EQUAL', T_IS_SMALLER_OR_EQUAL => 'T_EQUAL', T_IS_GREATER_OR_EQUAL => 'T_EQUAL', /* LOGICAL*/ T_LOGICAL_OR => 'T_LOGICAL', T_LOGICAL_XOR => 'T_LOGICAL', T_LOGICAL_AND => 'T_LOGICAL', T_BOOLEAN_OR => 'T_LOGICAL', T_BOOLEAN_AND => 'T_LOGICAL', /* SUFIX END */ T_ENDWHILE => 'T_END_SUFFIX', T_ENDFOREACH => 'T_END_SUFFIX', T_ENDFOR => 'T_END_SUFFIX', T_ENDDECLARE => 'T_END_SUFFIX', T_ENDSWITCH => 'T_END_SUFFIX', T_ENDIF => 'T_END_SUFFIX', // for PHP 5.3  T_NAMESPACE => 'T_INCLUDE', T_USE => 'T_INCLUDE', );
+        $aTokensToChange = array(/* QUOTES */ '"' => "T_DOUBLE_QUOTE", "'" => "T_SINGLE_QUOTE", /* PUNCTUATION */ '(' => 'T_PARENTHESIS_OPEN', ')' => 'T_PARENTHESIS_CLOSE', ';' => 'T_SEMI_COLON', '{' => 'T_OPEN_BRACE', '}' => 'T_CLOSE_BRACE', ',' => 'T_COMMA', '?' => 'T_QUESTION', ':' => 'T_COLON', '=' => 'T_ASSIGMENT', '<' => 'T_EQUAL', '>' => 'T_EQUAL', '.' => 'T_DOT', '[' => 'T_OPEN_SQUARE_BRACE', ']' => 'T_CLOSE_SQUARE_BRACE', /* OPERATOR*/ '+' => 'T_OPERATOR', '-' => 'T_OPERATOR', '*' => 'T_OPERATOR', '/' => 'T_OPERATOR', '%' => 'T_OPERATOR', '&' => 'T_OPERATOR', '|' => 'T_OPERATOR', '^' => 'T_OPERATOR', '~' => 'T_OPERATOR', '!' => 'T_OPERATOR_NEGATION', T_SL => 'T_OPERATOR', T_SR => 'T_OPERATOR', T_OBJECT_OPERATOR => 'T_OBJECT_OPERATOR', /* INCLUDE */ T_INCLUDE => 'T_INCLUDE', T_INCLUDE_ONCE => 'T_INCLUDE', T_REQUIRE => 'T_INCLUDE', T_REQUIRE_ONCE => 'T_INCLUDE', /* LANGUAGE CONSTRUCT */ T_FUNCTION => 'T_LANGUAGE_CONSTRUCT', T_PRINT => 'T_LANGUAGE_CONSTRUCT', T_RETURN => 'T_LANGUAGE_CONSTRUCT', T_ECHO => 'T_LANGUAGE_CONSTRUCT', T_NEW => 'T_LANGUAGE_CONSTRUCT', T_CLASS => 'T_LANGUAGE_CONSTRUCT', T_VAR => 'T_LANGUAGE_CONSTRUCT', T_GLOBAL => 'T_LANGUAGE_CONSTRUCT', T_THROW => 'T_LANGUAGE_CONSTRUCT', /* CONTROL */ T_IF => 'T_CONTROL', T_DO => 'T_CONTROL', T_WHILE => 'T_CONTROL', T_SWITCH => 'T_CONTROL', /* ELSE */ T_ELSEIF => 'T_ELSE', T_ELSE => 'T_ELSE', /* ACCESS PHP 5 */ T_INTERFACE => 'T_ACCESS', T_FINAL => 'T_ACCESS', T_ABSTRACT => 'T_ACCESS', T_PRIVATE => 'T_ACCESS', T_PUBLIC => 'T_ACCESS', T_PROTECTED => 'T_ACCESS', T_CONST => 'T_ACCESS', T_STATIC => 'T_ACCESS', /* COMPARATORS */ T_PLUS_EQUAL => 'T_ASSIGMENT_PRE', T_MINUS_EQUAL => 'T_ASSIGMENT_PRE', T_MUL_EQUAL => 'T_ASSIGMENT_PRE', T_DIV_EQUAL => 'T_ASSIGMENT_PRE', T_CONCAT_EQUAL => 'T_ASSIGMENT_PRE', T_MOD_EQUAL => 'T_ASSIGMENT_PRE', T_AND_EQUAL => 'T_ASSIGMENT_PRE', T_OR_EQUAL => 'T_ASSIGMENT_PRE', T_XOR_EQUAL => 'T_ASSIGMENT_PRE', T_DOUBLE_ARROW => 'T_ASSIGMENT', T_SL_EQUAL => 'T_EQUAL', T_SR_EQUAL => 'T_EQUAL', T_IS_EQUAL => 'T_EQUAL', T_IS_NOT_EQUAL => 'T_EQUAL', T_IS_IDENTICAL => 'T_EQUAL', T_IS_NOT_IDENTICAL => 'T_EQUAL', T_IS_SMALLER_OR_EQUAL => 'T_EQUAL', T_IS_GREATER_OR_EQUAL => 'T_EQUAL', /* LOGICAL*/ T_LOGICAL_OR => 'T_LOGICAL', T_LOGICAL_XOR => 'T_LOGICAL', T_LOGICAL_AND => 'T_LOGICAL', T_BOOLEAN_OR => 'T_LOGICAL', T_BOOLEAN_AND => 'T_LOGICAL', /* SUFIX END */ T_ENDWHILE => 'T_END_SUFFIX', T_ENDFOREACH => 'T_END_SUFFIX', T_ENDFOR => 'T_END_SUFFIX', T_ENDDECLARE => 'T_END_SUFFIX', T_ENDSWITCH => 'T_END_SUFFIX', T_ENDIF => 'T_END_SUFFIX', // for PHP 5.3 T_NAMESPACE => 'T_INCLUDE', T_USE => 'T_INCLUDE', );
         
         foreach($aTokensToChange as $iToken => $sFunction) {
             $this->aTokenFunctions[$iToken] = $sFunction;
@@ -372,7 +368,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         }
         $oTemp = new $sFilterClass($this, $aSettings);
         // verify if same Filter is loaded
-        
         if(in_array($oTemp, $this->aFilters, TRUE)) {
             return false;
         }
@@ -615,13 +610,9 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         $this->oLog->log('Init process of ' . (($this->sInputFile) ? 'file ' . $this->sInputFile : 'string'), PEAR_LOG_DEBUG);
         $this->resetProperties();
         // if file type is php, use token_get_all
-        
         // else, use a class named PHP_Beautifier_Tokenizer_XXX
-        
         // instanced with the text and get the tokens with
-        
         // getTokens()
-        
         if($this->sFileType == 'php') {
             $this->aTokens = token_get_all($this->sText);
         } else {
@@ -638,7 +629,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         $iPrevAssoc = false;
         // Send a signal to the filter, announcing the init of the processing of a file
         
-        
         foreach($this->aFilters as $oFilter) {
             $oFilter->preProcess();
         }
@@ -649,16 +639,13 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
                 $aCurrentToken = array(0 => $aCurrentToken, 1 => $aCurrentToken);
             }
             // ArrayNested->off();
-            
             $sTextLog = PHP_Beautifier_Common::wsToString($aCurrentToken[1]);
             // ArrayNested->on();
-            
             $sTokenName = (is_numeric($aCurrentToken[0])) ? token_name($aCurrentToken[0]) : '';
             $this->oLog->log("Token:" . $sTokenName . "[" . $sTextLog . "]", PEAR_LOG_DEBUG);
             $this->controlToken($aCurrentToken);
             $iFirstOut = count($this->aOut);
             // 5
-            
             $bError = false;
             $this->aCurrentToken = $aCurrentToken;
             if($this->bBeautify) {
@@ -677,7 +664,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
             $this->controlTokenPost($aCurrentToken);
             $iLastOut = count($this->aOut);
             // set the assoc
-            
             if(($iLastOut - $iFirstOut) > 0) {
                 $this->aAssocs[$this->iCount] = array('offset' => $iFirstOut);
                 if($iPrevAssoc !== FALSE) {
@@ -690,9 +676,7 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
             }
         }
         // ~for
-        
         // generate the last assoc
-        
         if(count($this->aOut) == 0) {
             if($this->sFile) {
                 throw new Exception("Nothing on output for " . $this->sFile . "!");
@@ -702,7 +686,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         }
         $this->aAssocs[$iPrevAssoc]['length'] = (count($this->aOut) - 1) - $this->aAssocs[$iPrevAssoc]['offset'];
         // Post-processing
-        
         
         foreach($this->aFilters as $oFilter) {
             $oFilter->postProcess();
@@ -789,19 +772,16 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
     */
     private function controlToken($aCurrentToken) {
         // is a control structure opener?
-        
         if(in_array($aCurrentToken[0], $this->aControlStructures)) {
             $this->pushControlSeq($aCurrentToken);
             $this->iControlLast = $aCurrentToken[0];
         }
         // is a control structure closer?
-        
         if(in_array($aCurrentToken[0], $this->aControlStructuresEnd)) {
             $this->popControlSeq();
         }
         ($aCurrentToken[0]) {
             caseT_COMMENT : // callback!
-            
             $aMatch = array();
             if(preg_match("/\/\/\s*(.*?)->((.*)\((.*)\))/", $aCurrentToken[1], $aMatch)) {
                 
@@ -874,7 +854,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
             }
             break;
             case';' : // If is a while in a do while structure
-            
             if(isset($this->aControlSeq) && (end($this->aControlSeq) == T_WHILE)) {
                 $counter = 0;
                 $openParenthesis = 0;
@@ -1025,11 +1004,8 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         return ($iIndex >= 0) ? $this->aControlParenthesis[$iIndex] : false;
     }
     ////
-    
     // Mode methods
-    
     ////
-    
     
     /**
     * Set a mode to true
@@ -1056,11 +1032,8 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         return array_key_exists($sKey, $this->aModes) ? $this->aModes[$sKey] : false;
     }
     /////
-    
     // Filter methods
-    
     /////
-    
     
     /**
     * Add a string to the output
@@ -1153,15 +1126,10 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
         }
     }
     //
-    
     ////
-    
     // Methods to lookup previous, next tokens
-    
     ////
-    
     //
-    
     
     /**
     * Get the 'x' significant (non whitespace)previous token
@@ -1323,10 +1291,8 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
                 elseif(preg_match("/([\s\r\n]+)$/", $aToken[1], $aMatch)) {
                     $sWhiteSpace .= $aMatch[0];
                     // ArrayNested->off();
-                    
                     $this->oLog->log("+space-token-with-sp:[" . PHP_Beautifier_Common::wsToString($sWhiteSpace) . "]", PEAR_LOG_DEBUG);
                     // ArrayNested->on();
-                    
                     return $sWhiteSpace;
                 }
             } else {
@@ -1335,7 +1301,6 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
             }
         }
         // Strange, but...
-        
         $this->oLog->log("+space:[" . PHP_Beautifier_Common::wsToString($sWhiteSpace) . "]", PEAR_LOG_DEBUG);
         return $sWhiteSpace;
     }
@@ -1348,44 +1313,32 @@ class PHP_Beautifier implements PHP_Beautifier_Interface {
     */
     public function removeWhitespace() {
         // if the previous token was
-        
         // - a short comment
-        
         // - heredoc
-        
         // don't remove whitespace!
-        
         //
-        
         if($this->isPreviousTokenConstant(T_COMMENT) and preg_match("/^(\/\/|#)/", $this->getPreviousTokenContent())) {
             // Here for short comment
-            
             return false;
         }
         elseif($this->getPreviousTokenConstant(2) == T_END_HEREDOC) {
             // And here for heredoc
-            
             return false;
         }
         $pop = 0;
         
         for($i = count($this->aOut) - 1; $i >= 0; $i--) {
             // go backwards
-            
             $cNow = &$this->aOut[$i];
             if(strlen(trim($cNow)) == 0) {
                 // only space
-                
                 array_pop($this->aOut);
                 // delete it!
-                
                 $pop++;
             } else {
                 // we find something!
-                
                 $cNow = rtrim($cNow);
                 // rtrim out
-                
                 break;
             }
         }
