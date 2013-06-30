@@ -6,6 +6,8 @@ class State {
 
 	public $openBraces = 0;
 
+	public $lineWrapping = false;
+
 }
 
 ?>

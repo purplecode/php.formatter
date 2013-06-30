@@ -28,51 +28,33 @@ class TokenTransformations {
 	}
 
 	public function __construct() {
-		
+
 		$replacements = array(
 			T_ABSTRACT => 'abstract ',
-			T_AND_EQUAL => ' &= ',
 			T_ARRAY => 'array',
 			T_ARRAY_CAST => '(array) ',
-			T_AS => ' as ',
-			//T_BAD_CHARACTER => '$$',
-			T_BOOLEAN_AND => ' && ',
-			T_BOOLEAN_OR => ' || ',
 			T_BOOL_CAST => '(bool) ',
 			T_BREAK => 'break',
-			//T_CHARACTER => '$$',
 			T_CLASS_C => '__CLASS__',
 			T_CLONE => 'clone ',
-			T_CONCAT_EQUAL => ' .= ',
 			T_CONST => 'const ',
-			//T_CONSTANT_ENCAPSED_STRING => '$$',
 			T_CONTINUE => 'continue',
-			//T_CURLY_OPEN => '$$',
 			T_DEC => '--',
 			T_DECLARE => 'declare',
 			T_DEFAULT => 'defalt',
 			T_DIR => '__DIR__',
-			T_DIV_EQUAL => ' /= ',
-			//T_DNUMBER => ' $$ ',
-			//T_DOLLAR_OPEN_CURLY_BRACES => '$$', 
-			T_DOUBLE_ARROW => ' => ',
 			T_DOUBLE_CAST => '(double) ',
 			T_DOUBLE_COLON => '::', 
 			T_ECHO => 'echo ', 
 			T_EMPTY => 'empty',
-			//T_ENCAPSED_AND_WHITESPACE => '$$',
 			T_ENDDECLARE => 'enddeclare', 
-			//T_END_HEREDOC => '$$', 
-			//T_EVAL => '$$', 
 			T_EXIT => 'exit',
-			T_EXTENDS => ' extends ', 
 			T_FILE => '__FILE__', 
 			T_FINAL => 'final ', 
 			T_FUNC_C =>	'__FUNCTION__',
 			T_GLOBAL => 'global ', 
 			T_GOTO => 'goto ', 
-			//T_HALT_COMPILER => '$$', 
-			T_IMPLEMENTS =>	' implements ',
+			T_USE => ' use ',
 			T_INC => '++', 
 			T_INCLUDE => 'include ', 
 			T_INCLUDE_ONCE => 'include_once ',
@@ -80,18 +62,8 @@ class TokenTransformations {
 			T_INT_CAST => ' (int) ', 
 			T_INTERFACE => 'interface ', 
 			T_ISSET => 'isset',
-			T_IS_EQUAL => ' == ',
-			T_IS_GREATER_OR_EQUAL => ' >= ', 
-			T_IS_IDENTICAL => ' === ', 
-			T_IS_NOT_EQUAL => ' != ',
-			T_IS_NOT_IDENTICAL => ' !== ',
-			T_IS_SMALLER_OR_EQUAL => ' <= ',
 			T_LINE => '__LINE__',
 			T_LIST => 'list',
-			//T_LNUMBER => '$$',
-			T_LOGICAL_AND => ' and ',
-			T_LOGICAL_OR => ' or ',
-			T_LOGICAL_XOR => ' xor ',
 			T_METHOD_C => '__METHOD__',
 			T_MINUS_EQUAL => ' -= ',
 			T_MOD_EQUAL => ' %= ',
@@ -100,42 +72,36 @@ class TokenTransformations {
 			T_NS_C => '__NAMESPACE__',
 			T_NS_SEPARATOR => '\\',
 			T_NEW => 'new ',
-			//T_NUM_STRING => '$$',
 			T_OBJECT_CAST => '(object) ',
 			T_OBJECT_OPERATOR => '->',
 			T_OPEN_TAG_WITH_ECHO => '<?=',
-			T_OR_EQUAL => ' |= ',
 			T_PAAMAYIM_NEKUDOTAYIM => '::',
-			T_PLUS_EQUAL => ' += ',
 			T_PRINT => 'print',
 			T_REQUIRE => 'require ',
 			T_REQUIRE_ONCE => 'require_once ',
-			T_SL => ' << ',
-			T_SL_EQUAL => ' <<= ',
-			T_SR => ' >> ',
-			T_SR_EQUAL => ' >>= ',
-			//T_START_HEREDOC => '$$',
 			T_STATIC => 'static ',
 			T_STRING_CAST => '(string) ',
-			//T_STRING_VARNAME => '$$',
 			T_THROW => 'throw ',
 			T_UNSET => 'unset',
 			T_UNSET_CAST => '(unset) ',
-			T_USE => ' use ',
 			T_VAR => 'var ',
-			//T_VARIABLE => '$$',
-			T_XOR_EQUAL => ' ^= ', 
-			'+' => ' + ', 
-			'-' => ' - ', 
-			'*' => ' * ', 
-			'/' => ' / ',
-			'%' => ' % ',
-			'.' => ' . ', 
-			'>' => ' > ', 
-			'<' => ' < ', 
-			'=' => ' = ', 
 			'!' => '!', 
-			'^' => ' ^ ',
+			//T_END_HEREDOC => '$$', 
+			//T_EVAL => '$$', 
+			//T_HALT_COMPILER => '$$', 
+			//T_ENCAPSED_AND_WHITESPACE => '$$',
+			//T_LNUMBER => '$$',
+			//T_NUM_STRING => '$$',
+			//T_START_HEREDOC => '$$',
+			//T_STRING_VARNAME => '$$',
+			//T_VARIABLE => '$$',
+			//T_CHARACTER => '$$',
+			//T_CONSTANT_ENCAPSED_STRING => '$$',
+			//T_CURLY_OPEN => '$$',
+			//T_DNUMBER => ' $$ ',
+			//T_BAD_CHARACTER => '$$',
+			//T_DOLLAR_OPEN_CURLY_BRACES => '$$', 
+			
 			// class names, function names, etc.
 			T_STRING => function ($content, $state, $word) {
 				$content->append($word);
@@ -214,22 +180,22 @@ class TokenTransformations {
 				$content->rtrim()->newline()->append($word)->newline();
 			},
 			'(' => function ($content, $state, $word) {
-				$content->openBraces();
+				$content->br()->openBraces();
 			},
 			')' => function ($content, $state, $word) {
-				$content->closeBraces();
+				$content->closeBraces()->br();
 			},
 			';' => function ($content, $state, $word) {
-				$content->rtrim()->append($word)->newline();
+				$content->rtrim()->append($word)->br()->newline();
 			},
 			',' => function ($content, $state, $word) {
-				$content->rtrim()->append($word)->space();
+				$content->rtrim()->append($word)->br()->space();
 			},
 			'?' => function ($content, $state, $word) {
-				$content->space()->append($word)->space();
+				$content->space()->append($word)->br()->space();
 			},
 			':' => function ($content, $state, $word) {
-				$content->space()->append($word)->space();
+				$content->space()->append($word)->br()->space();
 			},
 			T_OPEN_TAG => 
 			function ($content, $state, $word) {
@@ -252,26 +218,76 @@ class TokenTransformations {
 				// TODO
 			});
 
-			$_ = function($tokenKeys, $function) use (&$replacements) {
-				if(is_array($tokenKeys)) {
-					foreach ($tokenKeys as $tokenKey) {
-						$replacements[$tokenKey] = $function;
-					}
-				} else {
-					$replacements[$tokenKeys] = $function;
+		$_ = function($tokenKeys, $function) use (&$replacements) {
+			if(is_array($tokenKeys)) {
+				foreach ($tokenKeys as $tokenKey) {
+					$replacements[$tokenKey] = $function;
 				}
-			};
+			} else {
+				$replacements[$tokenKeys] = $function;
+			}
+		};
 
-
-			$_(array(T_PRIVATE, T_PUBLIC, T_PROTECTED), function ($content, $state, $word) {
+		$_(array(
+				T_PRIVATE, 
+				T_PUBLIC, 
+				T_PROTECTED
+			),
+			function ($content, $state, $word) {
 				if(StringUtils::matches('/}\n\s*?$/', $content->getContent())) {
 					$content->newline();
 				}			
 				$content->append($word)->space();
-			});
+		});
 
-			$_(array(T_WHILE, T_FOR, T_FOREACH), function ($content, $state, $word) {
+		$_(array(
+				T_WHILE,
+				T_FOR,
+				T_FOREACH
+			),
+			function ($content, $state, $word) {
 				$content->newline()->append($word);
+		});
+
+		$_(array(
+				'+', //  ' + '
+				'-', //  ' - '
+				'*', //  ' * '
+				'/', //  ' / '
+				'%', //  ' % '
+				'.', //  ' . '
+				'>', //  ' > '
+				'<', //  ' < '
+				'=', //  ' = '
+				'^', //  ' ^ '
+				T_AND_EQUAL, 			//  ' &= '
+				T_AS, 					//  ' as '
+				T_BOOLEAN_OR, 			//  ' || '
+				T_CONCAT_EQUAL, 		//  ' .= '
+				T_BOOLEAN_AND, 			//  ' && '
+				T_DIV_EQUAL, 			//  ' /= '
+				T_DOUBLE_ARROW, 		//  ' => '
+				T_IS_EQUAL, 			//  ' == '
+				T_IS_GREATER_OR_EQUAL,	//  ' >= '
+				T_IS_IDENTICAL, 		//  ' === '
+				T_IS_NOT_EQUAL, 		//  ' != '
+				T_IS_NOT_IDENTICAL, 	//  ' !== '
+				T_IS_SMALLER_OR_EQUAL,  //  ' <= '
+				T_LOGICAL_AND, 			//  ' and '
+				T_LOGICAL_OR, 			//  ' or '
+				T_LOGICAL_XOR,			//  ' xor '
+				T_OR_EQUAL, 			//  ' |= '
+				T_PLUS_EQUAL, 			//  ' += '
+				T_SL, 					//  ' << '
+				T_SL_EQUAL, 			//  ' <<= '
+				T_SR, 					//  ' >> '
+				T_SR_EQUAL, 			//  ' >>= '
+				T_XOR_EQUAL, 			//  ' ^= '
+				T_IMPLEMENTS, 			// 	' implements '
+				T_EXTENDS 				//  ' extends '
+			), 
+			function ($content, $state, $word) {
+				$content->space()->append($word)->br()->space();
 			});
 			
 			$this->replacements = $replacements;

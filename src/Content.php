@@ -4,7 +4,9 @@ class Content {
 
 	private $content = '';
 
-	private $lastLine = '';
+	private $lineWidth = 0;
+
+	private $lastBr = 0;
 
 	private $state;
 
@@ -12,19 +14,16 @@ class Content {
 		$this->state = $state;
 	}
 
-	public function append($text) {
-		$this->lastLine .= $text;
-		return $this;
-	}
-
 	public function openBraces() {
 		$this->state->openBraces++;
 		$this->append('(');
+		return $this;
 	}
 
 	public function closeBraces() {
 		$this->state->openBraces--;
 		$this->append(')');
+		return $this;
 	}
 
 	public function space() {
@@ -32,32 +31,51 @@ class Content {
 		return $this;
 	}
 
-	public function newline() {
-		if($this->state->openBraces == 0) {
-			$indent = str_repeat(' ', $this->state->indent * Settings::TABS_LENGTH);
-			$this->content .= $this->lastLine."\n".$indent;
-			$this->lastLine = '';
-		} else {
-			$this->space();
+	public function append($text) {
+		$textLength = strlen($text);
+		if($this->lineWidth + $textLength >= Settings::LINE_LENGTH) {
+			$this->newline(true);
 		}
+		$this->lineWidth += $textLength;
+		$this->content .= $text;
 		return $this;
-	}	
+	}
+
+	public function br() {
+		$this->lastBr = strlen($this->content);
+		return $this;
+	}
+
+	public function newline($lineWrapping = false) {
+		// TODO breaking for loops
+		if($this->state->openBraces > 0 && !$lineWrapping) {
+			$this->space();
+			return $this;
+		}
+
+		$this->lineWidth = 0;
+		$this->state->lineWrapping  = $lineWrapping;
+
+		$this->content .= "\n";
+		$this->indent($this->state->indent + ($this->state->lineWrapping ? 1 : 0));
+		return $this;
+	}
+
+	private function indent($indentSize) {
+		$this->append(str_repeat(' ', $indentSize));
+	}
 
 	public function isEmpty() {
-		$fullContent = $this->getContent(); 
-		return empty($fullContent);
+		return empty($this->content);
 	}
 
 	public function rtrim() {
-		$this->lastLine = rtrim($this->lastLine);
-		if(empty($this->lastLine)) {
-			$this->content = rtrim($this->content);
-		}
+		$this->content = rtrim($this->content);
 		return $this;
 	}
 
 	public function getContent() {
-		return $this->content.$this->lastLine;
+		return $this->content;
 	}
 }
 

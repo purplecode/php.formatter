@@ -4,7 +4,7 @@ class Settings {
 
 	const TABS_LENGTH = 4;
 
-	const LINE_LENGTH = 120;
+	const LINE_LENGTH = 60;
 
 	const BRACES_IN_NEW_LINE = false;
 
