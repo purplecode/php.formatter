@@ -4,6 +4,8 @@ class Content {
 
 	private $content = '';
 
+	private $lastLine = '';
+
 	private $state;
 
 	public function __construct($state) {
@@ -11,7 +13,7 @@ class Content {
 	}
 
 	public function append($text) {
-		$this->content .= $text;
+		$this->lastLine .= $text;
 		return $this;
 	}
 
@@ -26,30 +28,36 @@ class Content {
 	}
 
 	public function space() {
-		$this->content .= ' ';	
+		$this->append(' ');	
 		return $this;
 	}
 
 	public function newline() {
 		if($this->state->openBraces == 0) {
-			$this->content .= "\n".str_repeat(' ', $this->state->indent * Settings::TABS_LENGTH);
+			$indent = str_repeat(' ', $this->state->indent * Settings::TABS_LENGTH);
+			$this->content .= $this->lastLine."\n".$indent;
+			$this->lastLine = '';
 		} else {
 			$this->space();
 		}
 		return $this;
 	}	
 
-	public function isEmpty() {		
-		return empty($this->content);
+	public function isEmpty() {
+		$fullContent = $this->getContent(); 
+		return empty($fullContent);
 	}
 
 	public function rtrim() {
-		$this->content = rtrim($this->content);
+		$this->lastLine = rtrim($this->lastLine);
+		if(empty($this->lastLine)) {
+			$this->content = rtrim($this->content);
+		}
 		return $this;
 	}
 
 	public function getContent() {
-		return $this->content;
+		return $this->content.$this->lastLine;
 	}
 }
 
