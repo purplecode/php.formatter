@@ -62,7 +62,7 @@ class Content {
 	}
 
 	private function indent($indentSize) {
-		$this->append(str_repeat(' ', $indentSize));
+		$this->append(str_repeat(' ', $indentSize * Settings::INDENT_WIDTH));
 	}
 
 	public function isEmpty() {
