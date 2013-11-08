@@ -162,6 +162,7 @@ class TokenTransformations {
 				$content->append($word)->space();
 			},
 			'{' => function ($content, $state, $word) {
+				$content->rtrim();
 				if(Settings::BRACES_IN_NEW_LINE) {
 					$content->newline();
 				} else {
@@ -180,22 +181,22 @@ class TokenTransformations {
 				$content->rtrim()->newline()->append($word)->newline();
 			},
 			'(' => function ($content, $state, $word) {
-				$content->br()->openBraces();
+				$content->openBraces();
 			},
 			')' => function ($content, $state, $word) {
-				$content->closeBraces()->br();
+				$content->closeBraces();
 			},
 			';' => function ($content, $state, $word) {
-				$content->rtrim()->append($word)->br()->newline();
+				$content->rtrim()->append($word)->newline();
 			},
 			',' => function ($content, $state, $word) {
-				$content->rtrim()->append($word)->br()->space();
+				$content->rtrim()->append($word)->space();
 			},
 			'?' => function ($content, $state, $word) {
-				$content->space()->append($word)->br()->space();
+				$content->space()->append($word)->space();
 			},
 			':' => function ($content, $state, $word) {
-				$content->space()->append($word)->br()->space();
+				$content->space()->append($word)->space();
 			},
 			T_OPEN_TAG => 
 			function ($content, $state, $word) {
@@ -287,7 +288,7 @@ class TokenTransformations {
 				T_EXTENDS 				//  ' extends '
 			), 
 			function ($content, $state, $word) {
-				$content->space()->append($word)->br()->space();
+				$content->space()->append($word)->space();
 			});
 			
 			$this->replacements = $replacements;

@@ -6,8 +6,6 @@ class Content {
 
 	private $lineWidth = 0;
 
-	private $lastBr = 0;
-
 	private $state;
 
 	public function __construct($state) {
@@ -38,11 +36,6 @@ class Content {
 		}
 		$this->lineWidth += $textLength;
 		$this->content .= $text;
-		return $this;
-	}
-
-	public function br() {
-		$this->lastBr = strlen($this->content);
 		return $this;
 	}
 
