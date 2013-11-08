@@ -11,17 +11,25 @@ class FunctionalTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCase1() {
+    public function testGeneralCase() {
+        $this->_testCase('1.in', '1.out');
+    }
+
+    public function testCaseWhenFileMinimized() {
+        $this->_testCase('2.in', '2.out');
+    }
+
+    private function _testCase($in, $out) {
         // give
-        $input = $this->getFile('1.in');
+        $input = $this->getFile($in);
 
         // when
         $current = $this->cut->format($input);
 
         //then
-        $expected = $this->getFile('1.out');
+        $expected = $this->getFile($out);
 
-        $this->assertEquals($expected, $current);
+        $this->assertEquals($expected, $current);   
     }
 
     private function getFile($name) {
