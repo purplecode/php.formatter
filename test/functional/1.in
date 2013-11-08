@@ -13,9 +13,17 @@ if ($argc < 2)
 exit(0);
 }
 
+// comment on foreach loop
 foreach ($variable as $key => $value) {
-	# code...
+	# comment inside for loop
 }
+
+
+
+// comment in the middle of nothing
+
+
+
 
 for($i=10; $i >      0;
 
@@ -27,6 +35,13 @@ for($i=10; $i >      0;
 	/* some comment */
 $inputFile = $argv[1] == '-' ? 'php://stdin' : $argv[1];
 $fileContent = file_get_contents($inputFile);
+
+/*
+	
+			multiline comment in the middle
+
+*/
+
 
 $formatter = new PHPFormatter();
 $output = $formatter->format($fileContent);

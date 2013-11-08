@@ -1,5 +1,7 @@
 <?php
 
+require_once ('StringUtils.php');
+
 class Content {
 
 	private $content = '';
@@ -50,7 +52,15 @@ class Content {
 		$this->state->lineWrapping  = $lineWrapping;
 
 		$this->content .= "\n";
+
 		$this->indent($this->state->indent + ($this->state->lineWrapping ? 1 : 0));
+		return $this;
+	}
+
+	public function newlineIfNeed() {
+		if(!StringUtils::endsWith($this->content, "\n")) {
+			$this->newline();
+		}
 		return $this;
 	}
 

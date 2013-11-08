@@ -247,7 +247,7 @@ class TokenTransformations {
 				T_FOREACH
 			),
 			function ($content, $state, $word) {
-				$content->newline()->append($word);
+				$content->newlineIfNeed()->append($word);
 		});
 
 		$_(array(
