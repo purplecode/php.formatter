@@ -47,7 +47,8 @@ $formatter = new PHPFormatter();
 $output = $formatter->format($fileContent);
 
 
-
+foreach($array as $item) 
+noop();
 
 
 
