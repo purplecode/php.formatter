@@ -52,6 +52,7 @@ class TokenTransformations {
 			T_FILE => '__FILE__', 
 			T_FINAL => 'final ', 
 			T_FUNC_C =>	'__FUNCTION__',
+			T_DEFAULT => 'default',
 			T_GLOBAL => 'global ', 
 			T_GOTO => 'goto ', 
 			T_USE => ' use ',
@@ -85,6 +86,7 @@ class TokenTransformations {
 			T_UNSET => 'unset',
 			T_UNSET_CAST => '(unset) ',
 			T_VAR => 'var ',
+			T_CASE => 'case ',
 			'!' => '!', 
 			//T_END_HEREDOC => '$$', 
 			//T_EVAL => '$$', 
@@ -148,12 +150,6 @@ class TokenTransformations {
 					$content->space();
 				}
 				$content->append($word);
-			},
-			T_SWITCH => function ($content, $state, $word) {
-				// TODO
-			},
-			T_DEFAULT => function ($content, $state, $word) {
-				// TODO
 			},
 			T_CLASS => function ($content, $state, $word) {
 				$content->newline()->append($word)->space();
@@ -244,7 +240,8 @@ class TokenTransformations {
 		$_(array(
 				T_WHILE,
 				T_FOR,
-				T_FOREACH
+				T_FOREACH,
+				T_SWITCH
 			),
 			function ($content, $state, $word) {
 				$content->newlineIfNeed()->append($word);

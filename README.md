@@ -12,4 +12,8 @@ Currently only pure php code is supported (no html-php mess). I used it to forma
 php format.php <input.php> [<output.php>]
 ```
 
+## Limitations
+
+I prefer adding curly braces after `if', `for` and 'case', that is why currently only such cases are nicely formatted.
+
 Enjoy!

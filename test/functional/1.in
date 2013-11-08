@@ -45,10 +45,24 @@ $fileContent = file_get_contents($inputFile);
 
 $formatter = new PHPFormatter();
 $output = $formatter->format($fileContent);
+switch (
 
+	$variable
+				) {
+            case 
 
-foreach($array as $item) 
-noop();
+            0:{
+                $variable++;
+                break;}
+
+case        1 : {$variable++; break;}
+
+            default
+
+    :
+                $variable--;
+                break;
+        }
 
 
 
