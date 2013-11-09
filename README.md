@@ -1,10 +1,10 @@
 # php.formatter
 
-Yet another php formatter. Maybe this time you will be satisfied.
+Yet another php formatter.
 
 This project was started as a proof of concept, that it is possible to write a programming language formatter with clear set of rules and with small amount of if's. Formatter that can be easily extendible and customizable.
 
-Currently only pure php code is supported (no html-php mess). I used it to format project based on Symfony framework.
+Currently only pure php code is supported (no html-php mess). I used it to format project which was based on Symfony framework.
 
 ## Usage
 

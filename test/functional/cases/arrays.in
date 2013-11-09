@@ -1,0 +1,20 @@
+<?php
+
+// messy array
+$array = array(1 
+
+	=> 
+
+2
+
+);
+
+// should stay the same
+$array = array('a' => array('b' => 'c'));
+
+
+// should keep new lines
+$array = array(
+	'B' => array('b' => 'c', 'd' => 'e'),
+	'A' => array('b' => 'c', 'd' => 'e')
+));
